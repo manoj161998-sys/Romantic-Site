@@ -168,6 +168,7 @@ body {
 </div>
 
 <audio id="bgMusic" src="love.mp3"></audio>
+<audio id="voiceNote" src="5_6122879538654354299.ogg"></audio>
 
 <!-- Skip Button (Always Visible) -->
 <button id="skipBtn" onclick="skipToEnd()">Skip to Ending ⏩</button>
@@ -287,8 +288,14 @@ function showFinalMessage() {
                 finalMessage.classList.add("glow");
 
                 // 🔥 PLAY YOUR VOICE HERE
-                const voice = document.getElementById("5_6122879538654354299");
-                voice.play();
+const voice = document.getElementById("voiceNote");
+
+music.volume = 0.3;   // lower music
+voice.play();
+
+voice.onended = () => {
+    music.volume = 1; // restore music
+};
 
             }
         }
@@ -334,6 +341,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
