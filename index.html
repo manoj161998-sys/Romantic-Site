@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+#entryScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0f0f1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+#entryScreen button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+#message {
+    font-size: 1.3em;
+    width: 80%;
+    margin: auto;
+    min-height: 80px;
+}
+
+button.mainBtn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1em;
+    border: none;
+    border-radius: 25px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+}
+
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Entry Screen -->
+<div id="entryScreen">
+    <h2>For Someone Very Special ❤️</h2>
+    <button onclick="startExperience()">Tap to Enter</button>
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" src="love.mp3" loop></audio>
+
+<script>
+function startExperience() {
+    const music = document.getElementById("bgMusic");
+
+    music.play().then(() => {
+        console.log("Music started successfully");
+    }).catch(error => {
+        console.log("Error playing audio:", error);
+        alert("Music couldn't start. Check file name.");
+    });
+
+    document.getElementById("entryScreen").style.display = "none";
+}
+</script>
+
+<div class="container">
+    <h1>For My Beautiful Girl ❤️</h1>
+    <div id="message"></div>
+    <button class="mainBtn" onclick="showReason()">Why I Love You 💖</button>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+function startExperience() {
+    music.play();
+    document.getElementById("entryScreen").style.display = "none";
+}
+
+// Typing Effect
+const text = "You are my peace, my happiness, and the most beautiful part of my life. Every day with you feels like magic.";
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("message").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    }
+}
+typeWriter();
+
+// Love Reasons
+const reasons = [
+    "Your smile melts my heart.",
+    "You stand by me no matter what.",
+    "Your love feels like home.",
+    "You understand me without words.",
+    "You are my forever."
+];
+
+function showReason() {
+    alert(reasons[Math.floor(Math.random() * reasons.length)]);
+}
+
+// Floating hearts
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+}, 300);
+</script>
+
+</body>
+</html>
