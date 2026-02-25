@@ -46,13 +46,14 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+    background: black;
 }
 
 .slideshow img {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;   /* FIXED HERE */
     opacity: 0;
     transition: opacity 2s ease-in-out, transform 8s ease-in-out;
 }
@@ -62,7 +63,7 @@ body {
 }
 
 .slideshow img.zoom {
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
 /* Caption */
@@ -71,7 +72,7 @@ body {
     bottom: 80px;
     width: 100%;
     font-size: 1.5em;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     padding: 15px;
 }
 
@@ -117,7 +118,7 @@ function startExperience() {
     }, 1000);
 }
 
-/* Captions for each photo */
+/* Captions */
 const captions = [
     "The moment our story began ❤️",
     "Every smile with you feels like home 💕",
@@ -139,10 +140,10 @@ function changeSlide() {
     slides[currentSlide].classList.add("active");
     caption.innerText = captions[currentSlide];
 
-    // Zoom effect only for final kissing photo
+    // Final kissing photo stays longer + zoom
     if (currentSlide === slides.length - 1) {
         slides[currentSlide].classList.add("zoom");
-        setTimeout(changeSlide, 8000); // final slide stays longer
+        setTimeout(changeSlide, 8000);
         return;
     }
 
