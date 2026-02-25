@@ -67,12 +67,52 @@ body {
     background-size: cover;
     background-position: center;
 
-    filter: blur(40px) brightness(0.45);
-    transform: scale(1.2);
+    filter: blur(35px);
+    transform: scale(1.1);
 
     transition: opacity 1.5s ease;
 }
 
+/* Soft dark overlay */
+.slide .bg::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.25);
+}
+/* Golden Glow Layer */
+.slide .golden-glow {
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    top: -20%;
+    left: -20%;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 180, 80, 0.35),
+        rgba(255, 140, 40, 0.15),
+        transparent 70%
+    );
+    animation: goldenPulse 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Glow breathing animation */
+@keyframes goldenPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
 /* Main image */
 .slide-content {
     position: absolute;
@@ -249,6 +289,7 @@ body {
     <!-- Slide 2 (Double) -->
     <div class="slide">
 <div class="bg" style="background-image: url('romantic-bg.jpg');"></div>
+            <div class="golden-glow"></div>
         <div class="slide-content double">
             <img src="Alice.jpg">
             <img src="Photo4.jpg">
@@ -258,6 +299,7 @@ body {
     <!-- Slide 3 (Double) -->
     <div class="slide">
 <div class="bg" style="background-image: url('romantic-bg.jpg');"></div>
+            <div class="golden-glow"></div>
         <div class="slide-content double">
             <img src="Photo3.jpg">
             <img src="Photo5.jpg">
@@ -267,6 +309,7 @@ body {
     <!-- Slide 4 (Double) -->
     <div class="slide">
 <div class="bg" style="background-image: url('romantic-bg.jpg');"></div>
+            <div class="golden-glow"></div>
         <div class="slide-content double">
             <img src="Yash.jpg">
             <img src="Photo6.jpg">
@@ -439,6 +482,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
