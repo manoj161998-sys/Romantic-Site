@@ -79,7 +79,7 @@ body {
 /* Caption */
 .caption {
     position: absolute;
-    bottom: 70px;
+    bottom: 90px;
     width: 100%;
     text-align: center;
     font-size: 18px;
@@ -98,17 +98,26 @@ body {
     transition: opacity 2s ease;
 }
 
-/* Skip Button */
+/* Premium Skip Button */
 #skipBtn {
-    position: absolute;
-    top: 20px;
+    position: fixed;
+    bottom: 20px;
     right: 20px;
-    background: rgba(255,77,109,0.9);
+    background: rgba(255, 77, 109, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: none;
     color: white;
-    padding: 10px 16px;
-    border-radius: 20px;
+    padding: 12px 20px;
+    border-radius: 30px;
     font-size: 14px;
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+#skipBtn:active {
+    transform: scale(0.95);
+    background: rgba(255, 77, 109, 0.85);
 }
 
 /* Floating Hearts */
@@ -134,7 +143,8 @@ body {
 
 <audio id="bgMusic" src="love.mp3"></audio>
 
-<button id="skipBtn" onclick="skipToEnd()" style="display:none;">Skip to Ending ⏩</button>
+<!-- Skip Button (Always Visible) -->
+<button id="skipBtn" onclick="skipToEnd()">Skip to Ending ⏩</button>
 
 <div class="slideshow">
 
@@ -168,7 +178,7 @@ body {
         <img src="Photo6.jpg">
     </div>
 
-    <div class="slide" id="finalSlide">
+    <div class="slide">
         <div class="bg" style="background-image: url('final.png');"></div>
         <img src="final.png">
     </div>
@@ -200,7 +210,6 @@ let slideshowInterval;
 function startExperience() {
     music.play();
     document.getElementById("entryScreen").style.display = "none";
-    document.getElementById("skipBtn").style.display = "block";
     startSlideshow();
 }
 
@@ -212,7 +221,7 @@ function startSlideshow() {
             slides[currentSlide].classList.add("active");
             caption.innerText = captions[currentSlide];
         }
-    }, 40000); // each slide approx 40 sec (7 slides ≈ 4:30)
+    }, 40000);
 }
 
 music.addEventListener("ended", showFinalMessage);
@@ -242,4 +251,3 @@ setInterval(() => {
 
 </body>
 </html>
-
