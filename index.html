@@ -46,24 +46,45 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: black;
 }
 
-.slideshow img {
+.slide {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: contain;   /* FIXED HERE */
     opacity: 0;
-    transition: opacity 2s ease-in-out, transform 8s ease-in-out;
+    transition: opacity 2s ease-in-out;
 }
 
-.slideshow img.active {
+.slide.active {
     opacity: 1;
 }
 
-.slideshow img.zoom {
-    transform: scale(1.05);
+/* Blurred Background */
+.slide .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(25px);
+    transform: scale(1.1);
+}
+
+/* Main Image */
+.slide img {
+    position: absolute;
+    max-width: 90%;
+    max-height: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 8s ease-in-out;
+}
+
+/* Zoom for final slide */
+.slide.zoom img {
+    transform: translate(-50%, -50%) scale(1.05);
 }
 
 /* Caption */
@@ -100,9 +121,20 @@ body {
 <audio id="bgMusic" src="love.mp3" loop></audio>
 
 <div class="slideshow">
-    <img src="Alice.jpg" class="active">
-    <img src="Yash.jpg">
-    <img src="final.png">
+    <div class="slide active">
+        <div class="bg" style="background-image: url('Alice.jpg');"></div>
+        <img src="Alice.jpg">
+    </div>
+
+    <div class="slide">
+        <div class="bg" style="background-image: url('Yash.jpg');"></div>
+        <img src="Yash.jpg">
+    </div>
+
+    <div class="slide">
+        <div class="bg" style="background-image: url('final.png');"></div>
+        <img src="final.png">
+    </div>
 </div>
 
 <div class="caption" id="captionText"></div>
@@ -126,7 +158,7 @@ const captions = [
     "And in your arms… I found forever 💋"
 ];
 
-const slides = document.querySelectorAll(".slideshow img");
+const slides = document.querySelectorAll(".slide");
 const caption = document.getElementById("captionText");
 
 let currentSlide = 0;
@@ -140,7 +172,6 @@ function changeSlide() {
     slides[currentSlide].classList.add("active");
     caption.innerText = captions[currentSlide];
 
-    // Final kissing photo stays longer + zoom
     if (currentSlide === slides.length - 1) {
         slides[currentSlide].classList.add("zoom");
         setTimeout(changeSlide, 8000);
