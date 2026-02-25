@@ -93,9 +93,26 @@ body {
     top: 45%;
     width: 100%;
     text-align: center;
-    font-size: 28px;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
     opacity: 0;
-    transition: opacity 2s ease;
+    transform: scale(0.8);
+    transition: opacity 2s ease, transform 2s ease;
+    text-shadow: 0 0 15px rgba(255, 77, 109, 0.8);
+}
+
+/* Glow pulse animation */
+@keyframes loveGlow {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#finalMessage.show {
+    opacity: 1;
+    transform: scale(1);
+    animation: loveGlow 3s infinite ease-in-out;
 }
 
 /* Premium Skip Button */
@@ -161,8 +178,8 @@ body {
     </div>
 
     <div class="slide">
-        <div class="bg" style="background-image: url('Yash.jpg');"></div>
-        <img src="Yash.jpg">
+        <div class="bg" style="background-image: url('Photo4.jpg');"></div>
+        <img src="Photo4.jpg">
     </div>
 
     <div class="slide">
@@ -171,8 +188,8 @@ body {
     </div>
 
     <div class="slide">
-        <div class="bg" style="background-image: url('Photo4.jpg');"></div>
-        <img src="Photo4.jpg">
+        <div class="bg" style="background-image: url('Yash.jpg');"></div>
+        <img src="Yash.jpg">
     </div>
 
     <div class="slide">
@@ -236,7 +253,22 @@ music.addEventListener("ended", showFinalMessage);
 function showFinalMessage() {
     clearInterval(slideshowInterval);
     caption.innerText = "";
-    finalMessage.style.opacity = 1;
+
+    const message = "I love you, My sweet cheeks ❤️";
+    finalMessage.innerText = "";
+    finalMessage.classList.add("show");
+
+    let i = 0;
+
+    function typeEffect() {
+        if (i < message.length) {
+            finalMessage.innerText += message.charAt(i);
+            i++;
+            setTimeout(typeEffect, 60);
+        }
+    }
+
+    typeEffect();
 }
 
 function skipToEnd() {
@@ -276,4 +308,5 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
