@@ -273,7 +273,6 @@ function showFinalMessage() {
         function typeEffect() {
             if (i < message.length) {
 
-                // Preserve spaces explicitly
                 if (message[i] === " ") {
                     finalMessage.innerHTML += "&nbsp;";
                 } else {
@@ -284,7 +283,13 @@ function showFinalMessage() {
                 setTimeout(typeEffect, 70);
 
             } else {
+
                 finalMessage.classList.add("glow");
+
+                // 🔥 PLAY YOUR VOICE HERE
+                const voice = document.getElementById("5_6122879538654354299");
+                voice.play();
+
             }
         }
 
@@ -329,6 +334,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
