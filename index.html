@@ -184,6 +184,21 @@ body {
     0% { transform: translateY(100vh); opacity: 1; }
     100% { transform: translateY(-10vh); opacity: 0; }
 }
+/* White Fade Overlay */
+#whiteFade {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease;
+    z-index: 5000;
+}
+
+#whiteFade.active {
+    opacity: 0.8;   /* change to 0.6 if you want softer */
+}
 </style>
 </head>
 
@@ -236,10 +251,18 @@ body {
             <img src="Photo6.jpg">
         </div>
     </div>
+    <!-- Slide 5 (Single - Holding Hands) -->
+<div class="slide">
+    <div class="bg" style="background-image: url('holdinghands.jpg');"></div>
+    <div class="slide-content single">
+        <img src="holdinghands.jpg">
+    </div>
+</div>
 
 </div>
 
 <div class="caption" id="captionText"></div>
+    <div id="whiteFade"></div>
 <div id="finalMessage">I love you, My sweet cheeks ❤️</div>
 
 <script>
@@ -249,13 +272,12 @@ const caption = document.getElementById("captionText");
 const finalMessage = document.getElementById("finalMessage");
 
 const captions = [
-    "Our story begins with the warmth of you in my arms ❤️",
-    "Every moment with you feels like magic ✨",
-    "Smiles, laughter, memories 💕",
-    "Every second with you matters 💖",
-    "Growing together, always 🌹",
-    "You are my happiness 🌎",
-    ""
+    "Our story begins with the warmth of you in my arms ❤️",   // Slide 1
+    "Every moment with you feels like magic ✨",               // Slide 2
+    "Smiles, laughter, memories 💕",                           // Slide 3
+    "Every second with you matters 💖",                        // Slide 4
+    "Walking hand in hand, forever and always 🤍",             // NEW Slide 5
+    ""                                                         // for final message trigger
 ];
 
 let currentSlide = 0;
@@ -306,48 +328,58 @@ function showFinalMessage() {
     finalShown = true;
 
     clearInterval(slideshowInterval);
-    caption.innerText = "";
+    caption.classList.remove("show");
 
-    const message = "I love you, My sweet cheeks ❤️";
-    finalMessage.textContent = "";
-    finalMessage.classList.add("visible");
+    const fade = document.getElementById("whiteFade");
 
-    let i = 0;
+    // Step 1: Fade to white
+    fade.classList.add("active");
 
     setTimeout(() => {
 
-        function typeEffect() {
-            if (i < message.length) {
+        // Step 2: Fade white out
+        fade.classList.remove("active");
 
-                if (message[i] === " ") {
-                    finalMessage.innerHTML += "&nbsp;";
+        const message = "I love you, My sweet cheeks ❤️";
+        finalMessage.textContent = "";
+        finalMessage.classList.add("visible");
+
+        let i = 0;
+
+        setTimeout(() => {
+
+            function typeEffect() {
+                if (i < message.length) {
+
+                    if (message[i] === " ") {
+                        finalMessage.innerHTML += "&nbsp;";
+                    } else {
+                        finalMessage.innerHTML += message[i];
+                    }
+
+                    i++;
+                    setTimeout(typeEffect, 70);
+
                 } else {
-                    finalMessage.innerHTML += message[i];
+
+                    finalMessage.classList.add("glow");
+
+                    const voice = document.getElementById("voiceNote");
+
+                    music.volume = 0.3;
+                    voice.play();
+
+                    voice.onended = () => {
+                        music.volume = 1;
+                    };
                 }
-
-                i++;
-                setTimeout(typeEffect, 70);
-
-            } else {
-
-                finalMessage.classList.add("glow");
-
-                // 🔥 PLAY YOUR VOICE HERE
-const voice = document.getElementById("voiceNote");
-
-music.volume = 0.3;   // lower music
-voice.play();
-
-voice.onended = () => {
-    music.volume = 1; // restore music
-};
-
             }
-        }
 
-        typeEffect();
+            typeEffect();
 
-    }, 1200);
+        }, 500);
+
+    }, 1500);
 }
 function skipToEnd() {
     music.currentTime = music.duration - 1;
@@ -386,6 +418,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
