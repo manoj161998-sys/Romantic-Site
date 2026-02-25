@@ -252,33 +252,37 @@ function startSlideshow() {
 
 music.addEventListener("ended", showFinalMessage);
 
+let finalShown = false;   // prevents duplicate execution
+
 function showFinalMessage() {
+
+    if (finalShown) return;   // stop if already executed
+    finalShown = true;
+
     clearInterval(slideshowInterval);
     caption.innerText = "";
 
     const message = "I love you, My sweet cheeks ❤️";
     finalMessage.innerText = "";
-
-    // Step 1: Fade + zoom in
     finalMessage.classList.add("visible");
 
-    // Step 2: Start typing after fade completes
+    let i = 0;
+
     setTimeout(() => {
-        let i = 0;
 
         function typeEffect() {
             if (i < message.length) {
-                finalMessage.innerText += message.charAt(i);
+                finalMessage.innerText += message[i];
                 i++;
                 setTimeout(typeEffect, 70);
             } else {
-                // Step 3: Add glow AFTER typing finishes
                 finalMessage.classList.add("glow");
             }
         }
 
         typeEffect();
-    }, 1500); // wait for fade animation
+
+    }, 1200);
 }
 
 function skipToEnd() {
@@ -318,6 +322,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
