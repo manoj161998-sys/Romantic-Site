@@ -252,18 +252,18 @@ function startSlideshow() {
 
 music.addEventListener("ended", showFinalMessage);
 
-let finalShown = false;   // prevents duplicate execution
+let finalShown = false;
 
 function showFinalMessage() {
 
-    if (finalShown) return;   // stop if already executed
+    if (finalShown) return;
     finalShown = true;
 
     clearInterval(slideshowInterval);
     caption.innerText = "";
 
     const message = "I love you, My sweet cheeks ❤️";
-    finalMessage.innerText = "";
+    finalMessage.textContent = "";
     finalMessage.classList.add("visible");
 
     let i = 0;
@@ -272,9 +272,17 @@ function showFinalMessage() {
 
         function typeEffect() {
             if (i < message.length) {
-                finalMessage.innerText += message[i];
+
+                // Preserve spaces explicitly
+                if (message[i] === " ") {
+                    finalMessage.innerHTML += "&nbsp;";
+                } else {
+                    finalMessage.innerHTML += message[i];
+                }
+
                 i++;
                 setTimeout(typeEffect, 70);
+
             } else {
                 finalMessage.classList.add("glow");
             }
@@ -284,7 +292,6 @@ function showFinalMessage() {
 
     }, 1200);
 }
-
 function skipToEnd() {
     music.currentTime = music.duration - 1;
     showFinalMessage();
@@ -322,6 +329,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
