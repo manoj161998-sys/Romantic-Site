@@ -98,21 +98,23 @@ body {
     letter-spacing: 1px;
     opacity: 0;
     transform: scale(0.8);
-    transition: opacity 2s ease, transform 2s ease;
-    text-shadow: 0 0 15px rgba(255, 77, 109, 0.8);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    text-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
 }
 
-/* Glow pulse animation */
-@keyframes loveGlow {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-#finalMessage.show {
+#finalMessage.visible {
     opacity: 1;
     transform: scale(1);
-    animation: loveGlow 3s infinite ease-in-out;
+}
+
+@keyframes loveGlow {
+    0%   { text-shadow: 0 0 15px rgba(255,77,109,0.6); }
+    50%  { text-shadow: 0 0 30px rgba(255,77,109,1); }
+    100% { text-shadow: 0 0 15px rgba(255,77,109,0.6); }
+}
+
+#finalMessage.glow {
+    animation: loveGlow 2.5s infinite ease-in-out;
 }
 
 /* Premium Skip Button */
@@ -256,19 +258,27 @@ function showFinalMessage() {
 
     const message = "I love you, My sweet cheeks ❤️";
     finalMessage.innerText = "";
-    finalMessage.classList.add("show");
 
-    let i = 0;
+    // Step 1: Fade + zoom in
+    finalMessage.classList.add("visible");
 
-    function typeEffect() {
-        if (i < message.length) {
-            finalMessage.innerText += message.charAt(i);
-            i++;
-            setTimeout(typeEffect, 60);
+    // Step 2: Start typing after fade completes
+    setTimeout(() => {
+        let i = 0;
+
+        function typeEffect() {
+            if (i < message.length) {
+                finalMessage.innerText += message.charAt(i);
+                i++;
+                setTimeout(typeEffect, 70);
+            } else {
+                // Step 3: Add glow AFTER typing finishes
+                finalMessage.classList.add("glow");
+            }
         }
-    }
 
-    typeEffect();
+        typeEffect();
+    }, 1500); // wait for fade animation
 }
 
 function skipToEnd() {
@@ -308,5 +318,6 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
