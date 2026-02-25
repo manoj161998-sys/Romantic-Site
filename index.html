@@ -52,6 +52,7 @@ body {
     opacity: 0;
     transform: scale(1.05);
     transition: opacity 1.5s ease, transform 1.5s ease;
+    overflow: hidden;   /* IMPORTANT FIX */
 }
 
 .slide.active {
@@ -68,9 +69,10 @@ body {
     background-position: center;
 
     filter: blur(35px);
-    transform: scale(1.1);
+    transform: scale(1.25);   /* Slightly larger to avoid black edges */
 
     transition: opacity 1.5s ease;
+    z-index: 1;
 }
 
 /* Soft dark overlay */
@@ -96,6 +98,7 @@ body {
     );
     animation: goldenPulse 8s ease-in-out infinite;
     pointer-events: none;
+    z-index: 2;
 }
 
 /* Glow breathing animation */
@@ -115,10 +118,11 @@ body {
 }
 /* Main image */
 .slide-content {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
+    z-index: 3;   /* IMPORTANT */
 }
 
 .single img {
@@ -137,7 +141,7 @@ body {
     width: 50%;
     height: 100%;
     object-fit: contain;
-    background: black;
+    background: transparent;   /* REMOVE black */
 }
 
 /* Mobile Optimization */
@@ -482,6 +486,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
