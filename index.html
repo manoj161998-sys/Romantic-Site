@@ -60,41 +60,47 @@ body {
     opacity: 1;
 }
 
-/* Blurred Background */
+/* Blurred background */
 .slide .bg {
     position: absolute;
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
-    filter: blur(25px);
+    filter: blur(30px);
     transform: scale(1.1);
 }
 
-/* Main Image */
+/* Main image */
 .slide img {
     position: absolute;
-    max-width: 90%;
-    max-height: 90%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
     transition: transform 8s ease-in-out;
 }
 
-/* Zoom for final slide */
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .slide img {
+        object-fit: contain;
+    }
+}
+
+/* Final slide zoom */
 .slide.zoom img {
-    transform: translate(-50%, -50%) scale(1.05);
+    transform: scale(1.05);
 }
 
 /* Caption */
 .caption {
     position: absolute;
-    bottom: 80px;
+    bottom: 70px;
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1.4em;
     background: rgba(0,0,0,0.6);
-    padding: 15px;
+    padding: 12px;
 }
 
 /* Floating Hearts */
@@ -132,8 +138,8 @@ body {
     </div>
 
     <div class="slide">
-        <div class="bg" style="background-image: url('final.png');"></div>
-        <img src="final.png">
+        <div class="bg" style="background-image: url('final.jpg');"></div>
+        <img src="final.jpg">
     </div>
 </div>
 
@@ -152,9 +158,8 @@ function startExperience() {
 
 /* Captions */
 const captions = [
-    "The moment our story began ❤️",
-    "Every smile with you feels like home 💕",
-    "You make ordinary moments magical ✨",
+    "Where it all started ❤️",
+    "Every moment with you feels like magic ✨",
     "And in your arms… I found forever 💋"
 ];
 
@@ -174,7 +179,7 @@ function changeSlide() {
 
     if (currentSlide === slides.length - 1) {
         slides[currentSlide].classList.add("zoom");
-        setTimeout(changeSlide, 8000);
+        setTimeout(changeSlide, 9000);  // final kiss stays longer
         return;
     }
 
