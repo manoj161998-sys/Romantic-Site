@@ -69,11 +69,29 @@ body {
 }
 
 /* Main image */
-.slide img {
+.slide-content {
     position: absolute;
     width: 100%;
     height: 100%;
+    display: flex;
+}
+
+.single img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+}
+
+.double {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.double img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Caption */
@@ -175,39 +193,39 @@ body {
 
 <div class="slideshow">
 
+    <!-- Slide 1 (Single Image) -->
     <div class="slide active">
         <div class="bg" style="background-image: url('final.png');"></div>
-        <img src="final.png">
+        <div class="slide-content single">
+            <img src="final.png">
+        </div>
     </div>
 
+    <!-- Slide 2 (Double) -->
     <div class="slide">
         <div class="bg" style="background-image: url('Alice.jpg');"></div>
-        <img src="Alice.jpg">
+        <div class="slide-content double">
+            <img src="Alice.jpg">
+            <img src="Photo4.jpg">
+        </div>
     </div>
 
-    <div class="slide">
-        <div class="bg" style="background-image: url('Photo4.jpg');"></div>
-        <img src="Photo4.jpg">
-    </div>
-
+    <!-- Slide 3 (Double) -->
     <div class="slide">
         <div class="bg" style="background-image: url('Photo3.jpg');"></div>
-        <img src="Photo3.jpg">
+        <div class="slide-content double">
+            <img src="Photo3.jpg">
+            <img src="Photo5.jpg">
+        </div>
     </div>
 
-    <div class="slide">
-        <div class="bg" style="background-image: url('Photo5.jpg');"></div>
-        <img src="Photo5.jpg">
-    </div>
-
+    <!-- Slide 4 (Double) -->
     <div class="slide">
         <div class="bg" style="background-image: url('Yash.jpg');"></div>
-        <img src="Yash.jpg">
-    </div>
-
-    <div class="slide">
-        <div class="bg" style="background-image: url('Photo6.jpg');"></div>
-        <img src="Photo6.jpg">
+        <div class="slide-content double">
+            <img src="Yash.jpg">
+            <img src="Photo6.jpg">
+        </div>
     </div>
 
 </div>
@@ -341,6 +359,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
