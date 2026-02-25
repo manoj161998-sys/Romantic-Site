@@ -16,6 +16,7 @@ body {
     overflow: hidden;
 }
 
+/* Entry Screen */
 #entryScreen {
     position: fixed;
     width: 100%;
@@ -26,10 +27,11 @@ body {
     align-items: center;
     flex-direction: column;
     z-index: 10;
+    transition: opacity 1s ease;
 }
 
 #entryScreen button {
-    padding: 15px 30px;
+    padding: 15px 35px;
     font-size: 18px;
     border: none;
     border-radius: 30px;
@@ -53,10 +55,11 @@ h1 {
     width: 80%;
     margin: auto;
     min-height: 80px;
+    line-height: 1.6;
 }
 
 button.mainBtn {
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 12px 25px;
     font-size: 1em;
     border: none;
@@ -66,10 +69,11 @@ button.mainBtn {
     cursor: pointer;
 }
 
+/* Floating Hearts */
 .heart {
     position: absolute;
     color: #ff4d6d;
-    animation: floatUp 5s linear infinite;
+    animation: floatUp 6s linear infinite;
 }
 
 @keyframes floatUp {
@@ -87,23 +91,8 @@ button.mainBtn {
     <button onclick="startExperience()">Tap to Enter</button>
 </div>
 
-<!-- Background Music -->
+<!-- Background Music (GitHub hosted file) -->
 <audio id="bgMusic" src="love.mp3" loop></audio>
-
-<script>
-function startExperience() {
-    const music = document.getElementById("bgMusic");
-
-    music.play().then(() => {
-        console.log("Music started successfully");
-    }).catch(error => {
-        console.log("Error playing audio:", error);
-        alert("Music couldn't start. Check file name.");
-    });
-
-    document.getElementById("entryScreen").style.display = "none";
-}
-</script>
 
 <div class="container">
     <h1>For My Beautiful Girl ❤️</h1>
@@ -115,12 +104,20 @@ function startExperience() {
 const music = document.getElementById("bgMusic");
 
 function startExperience() {
-    music.play();
-    document.getElementById("entryScreen").style.display = "none";
+    music.play().then(() => {
+        console.log("Music started");
+    }).catch(error => {
+        console.log("Playback blocked:", error);
+    });
+
+    document.getElementById("entryScreen").style.opacity = "0";
+    setTimeout(() => {
+        document.getElementById("entryScreen").style.display = "none";
+    }, 1000);
 }
 
-// Typing Effect
-const text = "You are my peace, my happiness, and the most beautiful part of my life. Every day with you feels like magic.";
+/* Typing Effect */
+const text = "You are my peace, my happiness, and the most beautiful part of my life. Every moment with you feels like magic. No matter the distance, my heart always finds you.";
 let i = 0;
 
 function typeWriter() {
@@ -132,20 +129,23 @@ function typeWriter() {
 }
 typeWriter();
 
-// Love Reasons
+/* Love Reasons */
 const reasons = [
     "Your smile melts my heart.",
-    "You stand by me no matter what.",
-    "Your love feels like home.",
+    "You stand by me even when I don’t deserve it.",
+    "Your voice feels like home.",
     "You understand me without words.",
-    "You are my forever."
+    "You are my forever.",
+    "You make my world brighter.",
+    "Loving you feels effortless.",
+    "You believe in us."
 ];
 
 function showReason() {
     alert(reasons[Math.floor(Math.random() * reasons.length)]);
 }
 
-// Floating hearts
+/* Floating Hearts */
 setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -153,8 +153,8 @@ setInterval(() => {
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = Math.random() * 20 + 15 + "px";
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-}, 300);
+    setTimeout(() => heart.remove(), 6000);
+}, 400);
 </script>
 
 </body>
