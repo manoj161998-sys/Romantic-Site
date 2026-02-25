@@ -103,6 +103,15 @@ body {
     font-size: 18px;
     padding: 10px 15px;
     background: rgba(0,0,0,0.5);
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.caption.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Final Love Message */
@@ -240,7 +249,7 @@ const caption = document.getElementById("captionText");
 const finalMessage = document.getElementById("finalMessage");
 
 const captions = [
-    "Where our story began ❤️",
+    "Our story begins with the warmth of you in my arms ❤️",
     "Every moment with you feels like magic ✨",
     "Smiles, laughter, memories 💕",
     "Every second with you matters 💖",
@@ -255,17 +264,35 @@ let slideshowInterval;
 function startExperience() {
     music.play();
     document.getElementById("entryScreen").style.display = "none";
+
+    caption.innerText = captions[0];
+
+    // small delay for smooth effect
+    setTimeout(() => {
+        caption.classList.add("show");
+    }, 300);
+
     startSlideshow();
 }
 
 function startSlideshow() {
     slideshowInterval = setInterval(() => {
+
         if (currentSlide < slides.length - 1) {
+
             slides[currentSlide].classList.remove("active");
+            caption.classList.remove("show");
+
             currentSlide++;
+
             slides[currentSlide].classList.add("active");
             caption.innerText = captions[currentSlide];
+
+            setTimeout(() => {
+                caption.classList.add("show");
+            }, 300);
         }
+
     }, 40000);
 }
 
@@ -359,6 +386,7 @@ document.addEventListener("click", showSkipButton);
 
 </body>
 </html>
+
 
 
 
